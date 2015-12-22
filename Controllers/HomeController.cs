@@ -58,6 +58,22 @@ namespace EmptyMVCAuthentication01.Controllers
                 return View();
             }
         }
+        public IActionResult Edit(int id)
+        {
+            TestModel testmodel = db.TestModels.FirstOrDefault(d => d.Id == id);
+            if (testmodel == null)
+            {
+                return View("Not found");
+            }
+            return View(testmodel);
+        }
+        [HttpPost]
+        public IActionResult Edit(TestModel testmodel)
+        {
+            db.Entry(testmodel).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
     }
 }
