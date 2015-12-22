@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using EmptyMVCAuthentication01.Models;
+using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Extensions;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,7 +19,7 @@ namespace EmptyMVCAuthentication01.Controllers
         {
             try
             {
-                return View();
+                return View(db.TestModels.ToList());
             }
             catch(Exception ex)
             {
@@ -26,11 +28,17 @@ namespace EmptyMVCAuthentication01.Controllers
             }
                 
         }
-        [HttpPost]
-        public IActionResult Index(TestModel testmodel)
+
+        public IActionResult Details(int id)
         {
-            return View();
+            TestModel testmodel = db.TestModels.FirstOrDefault(d=>d.Id==id);
+            if (testmodel == null)
+            {
+                return View("Not found");
+            }
+            return View(testmodel);
         }
+
         public IActionResult Create()
         {
             return View();

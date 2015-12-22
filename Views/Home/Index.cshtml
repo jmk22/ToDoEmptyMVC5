@@ -13,6 +13,14 @@
 </head>
 <body>
     <h2>Welcome to Home/Index</h2>
+    <h4>Here's the list</h4>
+    <ul>
+        @foreach(var item in Model)
+        {
+            <li>@Html.DisplayFor(modelItem => item.Name) | @Html.ActionLink("Details", "Details", new { id = item.Id })</li>
+
+        }
+    </ul>
     <p>@Html.ActionLink("Create New", "Create")</p>
 </body>
 </html>
