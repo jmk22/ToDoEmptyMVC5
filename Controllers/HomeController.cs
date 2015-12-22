@@ -75,5 +75,23 @@ namespace EmptyMVCAuthentication01.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Delete(int id)
+        {
+            TestModel testmodel = db.TestModels.FirstOrDefault(d => d.Id == id);
+            if (testmodel == null)
+            {
+                return View("Not found");
+            }
+            return View(testmodel);
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            TestModel testmodel = db.TestModels.FirstOrDefault(d => d.Id == id);
+            db.TestModels.Remove(testmodel);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }
